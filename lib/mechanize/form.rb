@@ -352,7 +352,7 @@ class Mechanize::Form
 
       delimiter = "--#{boundary}\r\n"
 
-      data = String.new
+      data = ::String.new
 
       query_params.each do |k,v|
         if k
@@ -597,7 +597,7 @@ class Mechanize::Form
 
   unless ::String.method_defined?(:b)
     # Define String#b for Ruby < 2.0
-    class String
+    class ::String
       def b
         dup.force_encoding(Encoding::ASCII_8BIT)
       end
@@ -606,7 +606,7 @@ class Mechanize::Form
 
   def rand_string(len = 10)
     chars = ("a".."z").to_a + ("A".."Z").to_a
-    string = String.new
+    string = ::String.new
     1.upto(len) { |i| string << chars[rand(chars.size-1)] }
     string
   end
@@ -615,7 +615,7 @@ class Mechanize::Form
     str.b.gsub(/(["\r\\])/, '\\\\\1')
   end
 
-  def param_to_multipart(name, value, buf = String.new)
+  def param_to_multipart(name, value, buf = ::String.new)
     buf <<
       "Content-Disposition: form-data; name=\"".freeze <<
       mime_value_quote(name) <<
@@ -624,7 +624,7 @@ class Mechanize::Form
       CRLF
   end
 
-  def file_to_multipart(file, buf = String.new)
+  def file_to_multipart(file, buf = ::String.new)
     file_name = file.file_name ? ::File.basename(file.file_name) : ''
 
     body = buf <<
